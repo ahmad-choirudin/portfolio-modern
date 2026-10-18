@@ -2,7 +2,7 @@
 
 Personal portfolio of Ahmad Choirudin, an independent digital professional from Indonesia working across Web3, frontend development, community operations, and AI data.
 
-**Live site:** <!-- add your Vercel link here -->
+**Live site:** https://ahmadchoirudin.vercel.app/
 
 ## Features
 
@@ -67,6 +67,6 @@ Deployed on Vercel. When importing the repo, set **Root Directory** to `app/fron
 
 ## Contact
 
-- Email: ahmadchoirudin@gmail.com
+- Email: ahmadchoirudin86@gmail.com
 - GitHub: [@ahmad-choirudin](https://github.com/ahmad-choirudin)
 - X: [@CubbieOG](https://x.com/CubbieOG)
