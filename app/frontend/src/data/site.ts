@@ -1,15 +1,38 @@
 export const site = {
   name: "Ahmad Choirudin",
-  role: "Independent digital professional · Indonesia",
-  heroImage: "/hero.jpeg", // ganti ke "/hero.jpg" setelah foto ditaruh di public/
-  aboutImage: "/about.jpeg", // ganti ke "/about.jpg"
+  role: "Independent Digital Professional · Indonesia",
+  heroImage: "/hero.jpeg",
+  aboutImage: "/about.jpeg",
   email: "ahmadchoirudin86@gmail.com",
-  nav: ["About", "Work", "Expertise", "Credentials", "Contact"],
+
+  nav: [
+    "About",
+    "Work",
+    "Expertise",
+    "Credentials",
+    "Contact",
+  ],
+
   socials: [
-    { label: "LinkedIn", handle: "/ahmadchoirudin", href: "https://www.linkedin.com/in/ahmadchoirudin" },
-    { label: "GitHub", handle: "/ahmad-choirudin", href: "https://github.com/ahmad-choirudin" },
-    { label: "X (Twitter)", handle: "@CubbieOG", href: "https://x.com/CubbieOG" },
-    { label: "Telegram", handle: "@CubbieOG", href: "https://t.me/CubbieOG" },
-    { label: "Discord", handle: "xcubbie", href: "#" },
+    {
+      label: "LinkedIn",
+      handle: "/ahmadchoirudin",
+      href: "https://www.linkedin.com/in/ahmadchoirudin",
+    },
+    {
+      label: "GitHub",
+      handle: "/ahmad-choirudin",
+      href: "https://github.com/ahmad-choirudin",
+    },
+    {
+      label: "X (Twitter)",
+      handle: "@CubbieOG",
+      href: "https://x.com/CubbieOG",
+    },
+    {
+      label: "Telegram",
+      handle: "@CubbieOG",
+      href: "https://t.me/CubbieOG",
+    },
   ],
 };

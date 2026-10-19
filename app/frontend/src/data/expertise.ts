@@ -1,8 +1,32 @@
 export const expertise = [
-  { icon: "Hexagon", name: "Web3 & Blockchain Research", level: "Professional Experience" },
-  { icon: "Network", name: "Crypto Ecosystem Analysis", level: "Active Practice" },
-  { icon: "Users", name: "Community Management & Moderation", level: "Professional Experience" },
-  { icon: "Code2", name: "Frontend Development", level: "Active Practice" },
-  { icon: "Bot", name: "AI Evaluation & Data Annotation", level: "Active Practice" },
-  { icon: "FileText", name: "Digital Content & Research", level: "Learning Project" },
+  {
+    icon: "Hexagon",
+    name: "Web3 Research",
+    level: "Research & Analysis",
+  },
+  {
+    icon: "Network",
+    name: "Crypto & DeFi",
+    level: "Ecosystem Research",
+  },
+  {
+    icon: "Users",
+    name: "Community Operations",
+    level: "Moderation & Support",
+  },
+  {
+    icon: "Code2",
+    name: "Frontend Development",
+    level: "Project-Based Practice",
+  },
+  {
+    icon: "Bot",
+    name: "AI Evaluation",
+    level: "Evaluation & Annotation",
+  },
+  {
+    icon: "FileText",
+    name: "Content & Documentation",
+    level: "Research-Based Writing",
+  },
 ];
