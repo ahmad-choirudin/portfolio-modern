@@ -1,8 +1,8 @@
 export const site = {
   name: "Ahmad Choirudin",
   role: "Independent Digital Professional · Indonesia",
-  heroImage: "/hero.jpeg",
-  aboutImage: "/about.jpeg",
+  heroImage: "/hero.webp",
+  aboutImage: "/about.webp",
   email: "ahmadchoirudin86@gmail.com",
 
   nav: [
