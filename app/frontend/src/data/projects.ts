@@ -12,7 +12,7 @@ export const projects = [
     image: "/projects/web3-research-os.webp",
     title: "CUBBIE Web3 Research OS",
     period: "Web3 Analytics · Research Dashboard",
-    text: "A unified command center for exploring the crypto ecosystem. Track live market data, analyze price movements, discover DeFi protocol insights, follow crypto news, monitor wallet balances, and manage research workflows—all in one purpose-built Web3 workspace.",
+    text: "A unified command center for exploring the crypto ecosystem. Track live market data, analyze price movements, discover DeFi protocol insights, follow crypto news, monitor wallet balances, and manage research workflows all in one purpose-built Web3 workspace.",
     tools: "React, Vite, TypeScript, Tailwind CSS, CoinGecko, DefiLlama",
     demo: "https://web3-research-os.vercel.app/",
     github: "https://github.com/ahmad-choirudin/Web3-Research-OS",
