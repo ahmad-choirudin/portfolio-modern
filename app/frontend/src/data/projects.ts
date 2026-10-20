@@ -10,7 +10,7 @@ export const projects = [
   },
   {
     image: "/projects/web3-research-os.webp",
-    title: "CUBBIE — Web3 Research OS",
+    title: "CUBBIE Web3 Research OS",
     period: "Web3 Analytics · Research Dashboard",
     text: "A unified command center for exploring the crypto ecosystem. Track live market data, analyze price movements, discover DeFi protocol insights, follow crypto news, monitor wallet balances, and manage research workflows—all in one purpose-built Web3 workspace.",
     tools: "React, Vite, TypeScript, Tailwind CSS, CoinGecko, DefiLlama",
@@ -18,12 +18,12 @@ export const projects = [
     github: "https://github.com/ahmad-choirudin/Web3-Research-OS",
   },
   {
-    image: "/projects/3.svg",
-    title: "Airdrop Tracker",
-    period: "In Progress",
-    text: "A planned Web3 tracking experience focused on organizing airdrop opportunities, researching ecosystems, and keeping participation details structured in one place.",
-    tools: "Planned Frontend Project",
-    demo: "",
-    github: "",
+    image: "/projects/airdrop-tracker.webp",
+    title: "CUBBIE Airdrop Tracker",
+    period: "Web3 Tracker · Dashboard",
+    text: "A clean and simple web3 dashboard that helps you track, manage, and stay updated on airdrop opportunities across multiple projects, all in one place.",
+    tools: "React, Vite, Tailwind CSS, Lucide React, Python",
+    demo: "https://airdrop-tracker-sigma.vercel.app/",
+    github: "https://github.com/ahmad-choirudin/airdrop-tracker",
   },
 ];
