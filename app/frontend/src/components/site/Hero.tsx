@@ -9,21 +9,21 @@ const lines = [
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden px-6 pt-16 md:min-h-[85vh] md:px-14">
-      {/* Foto: di atas (HP), di kanan (desktop) */}
-      <div className="relative -mx-6 aspect-[4/5] md:absolute md:inset-y-0 md:right-0 md:mx-0 md:aspect-auto md:w-1/2 md:pt-16">
-        <img
-          src={site.heroImage}
-          alt="Ahmad Choirudin"
-          className="hero-photo h-full w-full object-cover object-[center_20%]"
-        />
-        {/* HP: pudar ke bawah */}
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/20 to-transparent md:hidden" />
-        {/* Desktop: pudar tipis ke kiri saja */}
-        <div className="absolute inset-0 hidden bg-gradient-to-r from-bg via-bg/10 to-transparent md:block md:w-1/3" />
-      </div>
+    <section className="relative min-h-[85vh] overflow-hidden px-6 pt-16 md:px-14">
+  {/* Foto */}
+  <div className="absolute inset-y-0 right-0 w-full md:w-1/2 md:pt-16">
+    <img
+      src={site.heroImage}
+      alt="Ahmad Choirudin"
+      className="hero-photo h-full w-full object-cover object-[center_20%] opacity-70 md:opacity-100"
+    />
+    {/* HP: gelap merata supaya teks terbaca */}
+    <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-bg/30 md:hidden" />
+    {/* Desktop: pudar tipis ke kiri */}
+    <div className="absolute inset-0 hidden bg-gradient-to-r from-bg via-bg/10 to-transparent md:block md:w-1/3" />
+  </div>
 
-      <svg className="sig" viewBox="0 0 340 150" aria-hidden="true">
+      <svg className="sig" md:translate-y-10" viewBox="0 0 340 150" aria-hidden="true">
         <path
           pathLength={1}
           d="M10 125 C60 15 95 145 145 65 S225 5 262 72 S305 105 332 38"
@@ -31,7 +31,7 @@ export default function Hero() {
       </svg>
 
       {/* Teks: naik sedikit menimpa bagian bawah foto di HP */}
-      <div className="hero-in relative -mt-20 max-w-xl pb-16 md:mt-0 md:pb-0 md:pt-10">
+      <div className="hero-in relative max-w-xl pb-16 md:pt-10">
         <p className="text-xs text-white/60">{site.role}</p>
 
         <h1
