@@ -24,7 +24,7 @@ export default function Hero() {
       </div>
 
       <svg
-        className="sig md:translate-y-10"
+        className="sig"
         viewBox="0 0 340 150"
         aria-hidden="true"
       >
