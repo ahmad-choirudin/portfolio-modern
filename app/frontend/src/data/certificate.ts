@@ -33,7 +33,7 @@ export const certificates: Cert[] = [
     2,
     "Blockchain Fundamentals",
     "In this course, I learned the basics of blockchain technology, including how blockchain payments work, cryptography, digital signatures, and consensus mechanisms. I also learned about Sybil defense, smart contracts, tokenomics, and virtual machines. The course helped me understand how blockchain works and how it can be used to build applications.",
-    "https://drive.google.com/file/d/1YXi87zdR5AN_wIVbYPWHBpUei2nHnGle/view?usp=drivesdk"
+    "https://drive.google.com/file/d/1UNt0gZSkaBKDpIJ1wlyeJGNInS-830JQ/view?usp=drivesdk"
   ),
   avalanche(
     3,
