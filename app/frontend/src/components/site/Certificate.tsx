@@ -1,10 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { certificates } from "../../data/certificate";
 
 export function Certificate() {
   const [zoom, setZoom] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
+  const [tab, setTab] = useState("All");
   const scroller = useRef<HTMLDivElement>(null);
+
+  const issuers = useMemo(
+    () => ["All", ...Array.from(new Set(certificates.map((c) => c.issuer)))],
+    []
+  );
+  const list = tab === "All" ? certificates : certificates.filter((c) => c.issuer === tab);
+  const count = (name: string) =>
+    name === "All" ? certificates.length : certificates.filter((c) => c.issuer === name).length;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -13,6 +22,12 @@ export function Certificate() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  const pick = (name: string) => {
+    setTab(name);
+    setExpanded(false);
+    scroller.current?.scrollTo({ left: 0 });
+  };
 
   const slide = (dir: 1 | -1) => {
     const el = scroller.current;
@@ -26,7 +41,7 @@ export function Certificate() {
       <span id="certificates" />
 
       <div className="mx-auto max-w-6xl px-5">
-        <div className="mb-8 flex items-end justify-between gap-6">
+        <div className="mb-6 flex items-end justify-between gap-6">
           <div>
             <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-lime-400">
               Learning & Credentials
@@ -40,7 +55,7 @@ export function Certificate() {
             </p>
           </div>
 
-          {certificates.length > 3 && (
+          {list.length > 3 && (
             <div className="hidden shrink-0 gap-2 md:flex">
               <button
                 type="button"
@@ -62,6 +77,24 @@ export function Certificate() {
           )}
         </div>
 
+        <div className="-mx-5 mb-5 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0">
+          {issuers.map((name) => (
+            <button
+              key={name}
+              type="button"
+              onClick={() => pick(name)}
+              aria-pressed={tab === name}
+              className={`shrink-0 rounded-full border px-4 py-2 text-xs transition ${
+                tab === name
+                  ? "border-lime-400 text-lime-400"
+                  : "border-white/15 text-zinc-400 hover:text-white"
+              }`}
+            >
+              {name} <span className="text-zinc-500">{count(name)}</span>
+            </button>
+          ))}
+        </div>
+
         <div
           ref={scroller}
           className={`${
@@ -70,9 +103,9 @@ export function Certificate() {
               : "grid grid-cols-1 gap-3"
           } [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:flex md:snap-x md:snap-mandatory md:gap-5 md:overflow-x-auto md:scroll-pl-0 md:px-0 md:pb-3`}
         >
-          {certificates.map((c, i) => (
+          {list.map((c, i) => (
             <article
-              key={c.title}
+              key={c.image}
               className={`group flex overflow-hidden rounded-xl border border-white/10 bg-zinc-950 transition-colors hover:border-lime-400/40 md:w-[calc((100%-2.5rem)/3)] md:shrink-0 md:snap-start md:flex-col md:items-stretch md:gap-0 md:p-0 ${
                 expanded
                   ? "w-[85%] shrink-0 snap-start flex-col sm:w-[60%]"
@@ -132,13 +165,15 @@ export function Certificate() {
           ))}
         </div>
 
-        <button
-          type="button"
-          onClick={() => setExpanded(!expanded)}
-          className="mt-4 w-full text-center text-sm font-medium text-lime-400 hover:text-lime-300 md:hidden"
-        >
-          {expanded ? "Show less" : "See more certificates"}
-        </button>
+        {list.length > 3 && (
+          <button
+            type="button"
+            onClick={() => setExpanded(!expanded)}
+            className="mt-4 w-full text-center text-sm font-medium text-lime-400 hover:text-lime-300 md:hidden"
+          >
+            {expanded ? "Show less" : "See more certificates"}
+          </button>
+        )}
       </div>
 
       {zoom && (
