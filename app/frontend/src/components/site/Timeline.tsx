@@ -1,10 +1,37 @@
 import { useEffect, useRef } from "react";
 
 const items = [
-  { year: "2020", title: "Community Operations", text: "Managing communities, moderating discussions, and supporting engagement across Telegram, Discord, and X." },
-  { year: "2024", title: "Web3 Research", text: "Researching blockchain ecosystems, protocols, tokenomics, and airdrop opportunities." },
-  { year: "2024", title: "Frontend Development", text: "Building responsive, Web3-inspired interfaces with React, Vite, and Tailwind CSS." },
-  { year: "2024", title: "AI Data Operations", text: "Contributing to AI evaluation, data annotation, and quality improvement projects." },
+  {
+    period: "Jun 2024 – Present",
+    title: "AI Data Operations",
+    org: "Evaluation, annotation & training",
+    text: "Evaluating, annotating, and training AI and LLM outputs across language, coding, and content-quality projects.",
+    tags: ["Outlier", "RWS", "TELUS Digital", "Mindrift", "Alignerr", "Meridial", "CrowdGen", "Curvia AI"],
+  },
+  {
+    period: "May 2023 – Present",
+    title: "Frontend Developer",
+    org: "Freelance",
+    text: "Building and maintaining personal and freelance web projects with a focus on responsive frontend development and Web3-related interfaces.",
+  },
+  {
+    period: "Apr 2020 – Present",
+    title: "Web3 / Crypto Researcher",
+    org: "Freelance · Self-Employed",
+    text: "Independent research across Web3, blockchain, cryptocurrency, DeFi, token ecosystems, and emerging blockchain projects.",
+  },
+  {
+    period: "Mar 2020 – Present",
+    title: "Web3 Content Writer & Community Moderator",
+    org: "Freelance · Self-Employed",
+    text: "Creating Web3-focused content and supporting online communities across crypto, blockchain, DeFi, and airdrops.",
+  },
+  {
+    period: "2011 – 2020",
+    title: "Earlier career: Sales & Retail",
+    org: "Alfamart · Lintas Semesta · Arta Boga Cemerlang · RSR Brew",
+    text: "Field sales, merchandising, and retail operations across Jakarta and East Java.",
+  },
 ];
 
 export default function Timeline() {
@@ -52,9 +79,17 @@ export default function Timeline() {
         {items.map((it) => (
           <li key={it.title} className="tl-item relative pb-10 pl-10 last:pb-0">
             <span className="tl-dot absolute left-0 top-1.5 h-[15px] w-[15px] rounded-full border-2 border-lime-400 bg-black" aria-hidden="true" />
-            <p className="text-xs font-medium text-lime-400">{it.year} – Present</p>
+            <p className="text-xs font-medium text-lime-400">{it.period}</p>
             <h3 className="mt-1 text-lg font-semibold text-white">{it.title}</h3>
-            <p className="mt-1 text-sm leading-6 text-zinc-400">{it.text}</p>
+            <p className="text-sm text-zinc-500">{it.org}</p>
+            <p className="mt-2 text-sm leading-6 text-zinc-400">{it.text}</p>
+            {it.tags && (
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {it.tags.map((t) => (
+                  <li key={t} className="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-300">{t}</li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ol>
