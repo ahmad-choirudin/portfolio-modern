@@ -1,8 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import "./index.css";
 import "./animations.css";
-createRoot(document.getElementById("root")!).render(<StrictMode><App /></StrictMode>);
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+
 const markExternalLinks = () => {
   document.querySelectorAll<HTMLAnchorElement>('a[href^="http"]').forEach((a) => {
     if (new URL(a.href).origin !== window.location.origin) {
