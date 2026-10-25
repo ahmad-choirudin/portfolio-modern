@@ -1,0 +1,13 @@
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  .marquee-track { animation: marquee 40s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+
+  .tl-line { transform: scaleY(var(--p, 0)); transform-origin: top; }
+  .tl-item { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .tl-item.is-in { opacity: 1; transform: none; }
+  .tl-dot { transform: scale(0); transition: transform .4s cubic-bezier(.2,.9,.3,1.4) .1s; }
+  .is-in .tl-dot { transform: scale(1); }
+
+  .magnetic-inner { transition: transform .25s ease-out; will-change: transform; }
+}
