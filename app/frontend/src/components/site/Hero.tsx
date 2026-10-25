@@ -1,4 +1,5 @@
 import { site } from "@/data/site";
+import NetworkBackground from "./NetworkBackground";
 
 const lines = [
   "Building at the",
@@ -9,7 +10,9 @@ const lines = [
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[85vh] overflow-hidden px-6 pt-16 md:px-14">
+    <section className="relative isolate min-h-[85vh] overflow-hidden px-6 pt-16 md:px-14">
+      <NetworkBackground />
+
       {/* Foto */}
       <div className="absolute inset-y-0 right-0 w-full md:w-1/2 md:pt-16">
         <img
@@ -23,11 +26,7 @@ export default function Hero() {
         <div className="absolute inset-0 hidden bg-gradient-to-r from-bg via-bg/10 to-transparent md:block md:w-1/3" />
       </div>
 
-      <svg
-        className="sig"
-        viewBox="0 0 340 150"
-        aria-hidden="true"
-      >
+      <svg className="sig" viewBox="0 0 340 150" aria-hidden="true">
         <path
           pathLength={1}
           d="M10 125 C60 15 95 145 145 65 S225 5 262 72 S305 105 332 38"
