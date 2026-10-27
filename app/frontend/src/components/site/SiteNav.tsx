@@ -1,12 +1,13 @@
 import { site } from "@/data/site";
 import ScrambleText from "./ScrambleText";
 import Magnetic from "./Magnetic";
+import Logo from "./Logo";
 
 export default function SiteNav() {
   return (
     <header className="sticky top-0 z-40 flex items-center justify-between bg-bg/80 px-6 py-4 backdrop-blur md:px-14">
       <a href="#" className="flex items-center gap-2 font-medium">
-        <span className="text-accent">✳</span>
+        <Logo className="h-7 w-7" />
         <ScrambleText text={site.name} />
       </a>
       <nav className="hidden gap-8 text-sm md:flex">
