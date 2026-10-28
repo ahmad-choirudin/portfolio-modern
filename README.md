@@ -2,7 +2,7 @@
 
 Personal portfolio of Ahmad Choirudin, an independent digital professional from Indonesia working across Web3, frontend development, community operations, and AI data.
 
-**Live site:** https://ahmadchoirudin.vercel.app/
+**Live site:** https://www.ahmadchoirudin.my.id/
 
 ## Features
 
