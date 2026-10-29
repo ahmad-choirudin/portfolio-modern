@@ -1,5 +1,6 @@
 import { site } from "@/data/site";
 import NetworkBackground from "./NetworkBackground";
+import { Container } from "./Section";
 
 const lines = [
   "Building at the",
@@ -10,7 +11,7 @@ const lines = [
 
 export default function Hero() {
   return (
-    <section className="relative isolate min-h-[85vh] overflow-hidden px-6 pt-16 md:px-14">
+    <section className="relative isolate min-h-[85vh] overflow-hidden pt-16">
       <NetworkBackground />
 
       {/* Foto */}
@@ -33,6 +34,7 @@ export default function Hero() {
         />
       </svg>
 
+      <Container className="relative pb-16">
       <div className="hero-in relative max-w-xl md:pt-10">
         <p className="text-xs text-white/60">{site.role}</p>
 
@@ -79,6 +81,7 @@ export default function Hero() {
           Open to remote opportunities
         </p>
       </div>
+      </Container>
     </section>
   );
 }
