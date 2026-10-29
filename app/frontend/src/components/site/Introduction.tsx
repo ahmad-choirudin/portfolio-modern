@@ -1,11 +1,13 @@
 import { site } from "@/data/site";
+import Section from "./Section";
 import SectionHeading from "./SectionHeading";
 
 export default function Introduction() {
   return (
-    <section className="grid gap-10 border-t border-white/10 px-6 py-16 md:grid-cols-3 md:px-14">
+    <Section id="about">
+      <div className="grid gap-10 md:grid-cols-3">
       <div data-reveal>
-        <SectionHeading id="about" title="About Me" />
+        <SectionHeading index="02" eyebrow="About" title="About Me" />
 
         <p className="mt-5 text-sm text-white/75">
           I’m Ahmad Choirudin, a digital professional from Indonesia with
@@ -37,7 +39,7 @@ export default function Introduction() {
 
       <blockquote
         data-reveal
-        className="self-start rounded border border-white/10 bg-card p-6 text-sm text-white/80"
+        className="self-start rounded border border-line bg-card p-6 text-sm text-white/80"
       >
         <p className="text-xs uppercase tracking-widest text-white/50">
           Areas of Focus
@@ -53,6 +55,7 @@ export default function Introduction() {
           Frontend Development
         </p>
       </blockquote>
-    </section>
+      </div>
+    </Section>
   );
 }
