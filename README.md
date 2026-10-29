@@ -1,8 +1,8 @@
 # ◈ Ahmad Choirudin — Portfolio
 
 <p align="center">
-  <img src="https://img.shields.io/badge/PORTFOLIO-AHMAD_CHOIRUDIN-C4F56A?style=for-the-badge&labelColor=0A0A0A" alt="Portfolio" />
-  <img src="https://img.shields.io/badge/STATUS-LIVE-C4F56A?style=for-the-badge&labelColor=0A0A0A" alt="Live" />
+  <img src="https://img.shields.io/badge/PORTFOLIO-AHMAD_CHOIRUDIN-8DF25B?style=for-the-badge&labelColor=0A0A0A" alt="Portfolio" />
+  <img src="https://img.shields.io/badge/STATUS-LIVE-8DF25B?style=for-the-badge&labelColor=0A0A0A" alt="Live" />
   <img src="https://img.shields.io/badge/BUILT_WITH-REACT_+_TYPESCRIPT-61DAFB?style=for-the-badge&labelColor=0A0A0A" alt="React and TypeScript" />
 </p>
 
@@ -25,31 +25,41 @@
 <table>
   <tr>
     <td width="50%">
-      <strong>01 / DESIGN</strong><br />
-      Dark theme with a neon green accent, fully responsive.
+      <strong>01 / DESIGN SYSTEM</strong><br />
+      Dark theme with a single neon green accent. Colors, type scale, and spacing are defined once as design tokens.
     </td>
     <td width="50%">
       <strong>02 / SECTIONS</strong><br />
-      Hero, Selected Work, About, Expertise, Credentials, and Contact.
+      Hero, Selected Work, About, Experience, Expertise, Certificates, and Contact.
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <strong>03 / ENTRANCE ANIMATIONS</strong><br />
-      Line-by-line hero headline, drawn signature line, and hero photo parallax.
+      <strong>03 / TYPOGRAPHY</strong><br />
+      Space Grotesk for headings, Inter for body text, and JetBrains Mono for labels and numbering.
     </td>
     <td width="50%">
-      <strong>04 / INTERACTIONS</strong><br />
-      Scroll progress bar, cursor glow, and tilting project cards (desktop only).
+      <strong>04 / ENTRANCE ANIMATIONS</strong><br />
+      Line-by-line hero headline, animated network background, and hero photo parallax.
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <strong>05 / ACCESSIBILITY</strong><br />
-      Respects <code>prefers-reduced-motion</code>.
+      <strong>05 / INTERACTIONS</strong><br />
+      Scroll progress bar, scroll-triggered reveals, animated counters, and a cursor glow on desktop.
     </td>
     <td width="50%">
-      <strong>06 / EASY TO EDIT</strong><br />
+      <strong>06 / ACCESSIBILITY</strong><br />
+      Respects <code>prefers-reduced-motion</code>, includes a skip link, keyboard-friendly mobile menu, and an accessible certificate viewer.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <strong>07 / RESPONSIVE</strong><br />
+      Mobile-first layout with a full-screen mobile menu and a shared page container that keeps every section aligned.
+    </td>
+    <td width="50%">
+      <strong>08 / EASY TO EDIT</strong><br />
       All content lives in simple data files, so updating text never requires touching components.
     </td>
   </tr>
@@ -74,6 +84,8 @@
   <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel" />
 </p>
 
+No animation library is used. All motion is built with CSS, `IntersectionObserver`, and `requestAnimationFrame`.
+
 ## ◈ GETTING STARTED
 
 Requires Node.js 18 or newer.
@@ -94,29 +106,42 @@ npm run build
 npm run preview
 ```
 
+To type-check without building:
+
+```bash
+npm run typecheck
+```
+
 ## ◈ PROJECT STRUCTURE
 
 ```text
 app/frontend/
-├── public/               # Photos, project images, favicon
+├── public/               # Photos, project images, certificates, favicon
+├── tailwind.config.ts    # Design tokens: colors, fonts, type scale
 └── src/
-    ├── components/site/  # Hero, SelectWork, Expertise, Contact, etc.
+    ├── components/site/  # Hero, SelectWork, Introduction, Timeline, Expertise,
+    │                     # Certificate, Contact, plus shared Section / SectionHeading
     ├── data/             # All editable content
     ├── pages/Index.tsx   # Page layout
-    └── index.css         # Global styles and animations
+    └── index.css         # Color tokens, global styles, hero and reveal animations
 ```
 
 ## ◈ EDITING CONTENT
 
 | What to change | File |
 | --- | --- |
-| Name, email, social links | `src/data/site.ts` |
+| Name, role, social links, nav items | `src/data/site.ts` |
+| Contact email (stored split to deter scrapers) | `src/data/site.ts` → `emailUser`, `emailDomain` |
 | Hero and About photos | `src/data/site.ts` + `public/` |
 | Projects | `src/data/projects.ts` |
+| Work experience | `src/data/experience.ts` |
 | Expertise | `src/data/expertise.ts` |
 | Certificates | `src/data/certificate.ts` |
-| Colors | `tailwind.config.ts` |
-| Animations | `src/index.css` |
+| Colors | `src/index.css` (`:root` tokens) |
+| Fonts and type scale | `tailwind.config.ts` + font link in `index.html` |
+| Animations | `src/index.css`, `src/animations.css` |
+
+Navigation items in `site.ts` must match section ids (lowercase): `work`, `about`, `experience`, `expertise`, `credentials`, `contact`.
 
 ## ◈ DEPLOYMENT
 
@@ -127,9 +152,11 @@ Deployed on Vercel. When importing the repo, set **Root Directory** to `app/fron
 <p align="center">
   <a href="https://www.ahmadchoirudin.my.id/">Portfolio</a>
   &nbsp; · &nbsp;
-  <a href="mailto:ahmadchoirudin86@gmail.com">Email</a>
-  &nbsp; · &nbsp;
   <a href="https://github.com/ahmad-choirudin">GitHub</a>
   &nbsp; · &nbsp;
+  <a href="https://www.linkedin.com/in/ahmadchoirudin">LinkedIn</a>
+  &nbsp; · &nbsp;
   <a href="https://x.com/CubbieOG">X / @CubbieOG</a>
+  &nbsp; · &nbsp;
+  <a href="https://t.me/CubbieOG">Telegram</a>
 </p>
