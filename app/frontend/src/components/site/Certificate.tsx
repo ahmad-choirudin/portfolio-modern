@@ -5,8 +5,6 @@ import SectionHeading from "./SectionHeading";
 
 type Cert = (typeof certificates)[number];
 
-const LIMIT = 6;
-
 function Lightbox({ cert, onClose }: { cert: Cert; onClose: () => void }) {
   const dialog = useRef<HTMLDivElement>(null);
   const closeBtn = useRef<HTMLButtonElement>(null);
@@ -22,6 +20,7 @@ function Lightbox({ cert, onClose }: { cert: Cert; onClose: () => void }) {
         return;
       }
       if (e.key !== "Tab") return;
+      
       const nodes = dialog.current?.querySelectorAll<HTMLElement>("a[href], button");
       if (!nodes || nodes.length === 0) return;
       const first = nodes[0];
@@ -93,18 +92,17 @@ export function Certificate() {
   const trigger = useRef<HTMLElement | null>(null);
 
   const issuers = useMemo(
-    () => ["All", ...Array.from(new Set(certificates.map((c) => c.issuer)))],
+    () => Array.from(new Set(certificates.map((c) => c.issuer))),
     []
   );
+  // Tampilan awal: satu sertifikat unggulan dari tiap penerbit.
+  const featured = useMemo(
+    () => issuers.map((i) => certificates.find((c) => c.issuer === i)!),
+    [issuers]
+  );
   const list = tab === "All" ? certificates : certificates.filter((c) => c.issuer === tab);
-  const visible = expanded ? list : list.slice(0, LIMIT);
   const count = (name: string) =>
     name === "All" ? certificates.length : certificates.filter((c) => c.issuer === name).length;
-
-  const pick = (name: string) => {
-    setTab(name);
-    setExpanded(false);
-  };
 
   const open = (c: Cert, el: HTMLElement) => {
     trigger.current = el;
@@ -118,7 +116,10 @@ export function Certificate() {
   }, []);
 
   const toggle = () => {
-    if (expanded) document.getElementById("credentials")?.scrollIntoView({ block: "start" });
+    if (expanded) {
+      setTab("All");
+      document.getElementById("credentials")?.scrollIntoView({ block: "start" });
+    }
     setExpanded(!expanded);
   };
 
@@ -131,75 +132,105 @@ export function Certificate() {
         note="Selected blockchain learning achievements focused on smart contracts, testing, and decentralized application development."
       />
 
-      <div className="mt-10 flex flex-wrap gap-2">
-        {issuers.map((name) => (
-          <button
-            key={name}
-            type="button"
-            onClick={() => pick(name)}
-            aria-pressed={tab === name}
-            className={`rounded-full border px-4 py-2 text-xs transition-colors ${
-              tab === name
-                ? "border-accent text-accent"
-                : "border-white/15 text-muted hover:text-fg"
-            }`}
-          >
-            {name} <span className="text-subtle">{count(name)}</span>
-          </button>
-        ))}
-      </div>
-
-      <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map((c) => (
-          <li
-            key={c.image}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-card transition-colors hover:border-accent/40"
-          >
-            <button
-              type="button"
-              onClick={(e) => open(c, e.currentTarget)}
-              aria-label={`Enlarge ${c.title} certificate`}
-              className="relative aspect-[4/3] overflow-hidden bg-black/30"
+      {!expanded ? (
+        <ul className="mt-12 grid gap-5 md:grid-cols-3">
+          {featured.map((c) => (
+            <li
+              key={c.image}
+              className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-card transition-colors hover:border-accent/40"
             >
-              <img
-                src={c.image}
-                alt={`${c.title} certificate`}
-                loading="lazy"
-                className="h-full w-full object-contain transition duration-500 group-hover:scale-[1.03]"
-              />
-            </button>
-
-            <div className="flex flex-1 flex-col p-5">
-              <p className="font-mono text-[11px] uppercase tracking-wider text-accent">{c.issuer}</p>
-              <h3 className="mt-2 font-display text-lg font-semibold leading-snug tracking-tight text-fg">
-                {c.title}
-              </h3>
-              <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted">{c.learned}</p>
-              <a
-                href={c.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-medium text-accent transition-colors hover:text-fg"
+              <button
+                type="button"
+                onClick={(e) => open(c, e.currentTarget)}
+                aria-label={`Enlarge ${c.title} certificate`}
+                className="relative aspect-[4/3] overflow-hidden bg-black/30"
               >
-                View Certificate <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </li>
-        ))}
-      </ul>
+                <img
+                  src={c.image}
+                  alt={`${c.title} certificate`}
+                  loading="lazy"
+                  className="h-full w-full object-contain transition duration-500 group-hover:scale-[1.03]"
+                />
+              </button>
 
-      {list.length > LIMIT && (
-        <div className="mt-10 flex justify-center">
-          <button
-            type="button"
-            onClick={toggle}
-            aria-expanded={expanded}
-            className="rounded-full border border-white/25 px-6 py-3 text-sm text-fg transition-colors hover:border-accent hover:text-accent"
-          >
-            {expanded ? "Show less" : `Show all ${list.length}`}
-          </button>
+              <div className="flex flex-1 flex-col p-5">
+                <p className="font-mono text-[11px] uppercase tracking-wider text-accent">{c.issuer}</p>
+                <h3 className="mt-2 font-display text-lg font-semibold leading-snug tracking-tight text-fg">
+                  {c.title}
+                </h3>
+                <a
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-medium text-accent transition-colors hover:text-fg"
+                >
+                  View Certificate <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="mt-12">
+          <div className="flex flex-wrap gap-2">
+            {["All", ...issuers].map((name) => (
+              <button
+                key={name}
+                type="button"
+                onClick={() => setTab(name)}
+                aria-pressed={tab === name}
+                className={`rounded-full border px-4 py-2 text-xs transition-colors ${
+                  tab === name
+                    ? "border-accent text-accent"
+                    : "border-white/15 text-muted hover:text-fg"
+                }`}
+              >
+                {name} <span className="text-subtle">{count(name)}</span>
+              </button>
+            ))}
+          </div>
+
+          <ul className="mt-6 border-t border-line">
+            {list.map((c) => (
+              <li key={c.image} className="flex items-center gap-4 border-b border-line py-4">
+                <button
+                  type="button"
+                  onClick={(e) => open(c, e.currentTarget)}
+                  aria-label={`Enlarge ${c.title} certificate`}
+                  className="group flex min-w-0 flex-1 flex-col gap-1 text-left sm:flex-row sm:items-baseline sm:gap-6"
+                >
+                  <span className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-accent sm:w-40">
+                    {c.issuer}
+                  </span>
+                  <span className="text-base text-fg transition-colors group-hover:text-accent">
+                    {c.title}
+                  </span>
+                </button>
+                <a
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${c.title} certificate (opens in a new tab)`}
+                  className="shrink-0 text-sm text-muted transition-colors hover:text-accent"
+                >
+                  View ↗
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
+
+      <div className="mt-10 flex justify-center">
+        <button
+          type="button"
+          onClick={toggle}
+          aria-expanded={expanded}
+          className="rounded-full border border-white/25 px-6 py-3 text-sm text-fg transition-colors hover:border-accent hover:text-accent"
+        >
+          {expanded ? "Show less" : `View all ${certificates.length} certificates`}
+        </button>
+      </div>
 
       {zoom && <Lightbox cert={zoom} onClose={close} />}
     </Section>
