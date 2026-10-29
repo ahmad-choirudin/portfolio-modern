@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { certificates } from "../../data/certificate";
 import { projects } from "../../data/projects";
-import Section from "./Section";
+import { expertise } from "../../data/expertise";
 
 const START_YEAR = 2020;
 
@@ -40,20 +40,18 @@ export default function StatsCounter() {
     { to: certificates.length, suffix: "", label: "Certificates earned" },
     { to: projects.length, suffix: "", label: "Projects built" },
     { to: new Date().getFullYear() - START_YEAR, suffix: "+", label: "Years in communities" },
-    { to: 4, suffix: "", label: "Areas of focus" },
+    { to: expertise.length, suffix: "", label: "Areas of expertise" },
   ];
   return (
-    <Section tight>
-      <dl className="grid grid-cols-2 gap-6 md:grid-cols-4">
-        {stats.map((s) => (
-          <div key={s.label} className="flex flex-col border-l border-line pl-4">
-            <dt className="order-2 mt-1 text-xs text-muted">{s.label}</dt>
-            <dd className="text-4xl font-semibold tracking-tight text-accent">
-              <Count to={s.to} suffix={s.suffix} />
-            </dd>
-          </div>
-        ))}
-      </dl>
-    </Section>
+    <dl className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+      {stats.map((s) => (
+        <div key={s.label} className="flex flex-col border-l border-line pl-5">
+          <dt className="order-2 mt-2 text-sm text-muted">{s.label}</dt>
+          <dd className="font-display text-5xl font-semibold tracking-tight text-accent">
+            <Count to={s.to} suffix={s.suffix} />
+          </dd>
+        </div>
+      ))}
+    </dl>
   );
 }
