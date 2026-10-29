@@ -1,189 +1,207 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { certificates } from "../../data/certificate";
 import Section from "./Section";
 import SectionHeading from "./SectionHeading";
 
+type Cert = (typeof certificates)[number];
+
+const LIMIT = 6;
+
+function Lightbox({ cert, onClose }: { cert: Cert; onClose: () => void }) {
+  const dialog = useRef<HTMLDivElement>(null);
+  const closeBtn = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    closeBtn.current?.focus();
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const nodes = dialog.current?.querySelectorAll<HTMLElement>("a[href], button");
+      if (!nodes || nodes.length === 0) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      ref={dialog}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${cert.title} certificate`}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+      onClick={onClose}
+    >
+      <button
+        ref={closeBtn}
+        type="button"
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full border border-white/25 bg-bg/70 text-lg text-fg backdrop-blur transition-colors hover:border-accent hover:text-accent"
+      >
+        ✕
+      </button>
+
+      <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+        <img
+          src={cert.image}
+          alt={`${cert.title} certificate`}
+          className="max-h-[78vh] w-full rounded-xl bg-white object-contain"
+        />
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-wider text-accent">{cert.issuer}</p>
+            <p className="mt-1 font-display text-lg font-semibold text-fg">{cert.title}</p>
+          </div>
+          <a
+            href={cert.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border border-white/25 px-4 py-2 text-sm text-fg transition-colors hover:border-accent hover:text-accent"
+          >
+            View Certificate ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function Certificate() {
-  const [zoom, setZoom] = useState<string | null>(null);
+  const [zoom, setZoom] = useState<Cert | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [tab, setTab] = useState("All");
-  const scroller = useRef<HTMLDivElement>(null);
+  const trigger = useRef<HTMLElement | null>(null);
 
   const issuers = useMemo(
     () => ["All", ...Array.from(new Set(certificates.map((c) => c.issuer)))],
     []
   );
   const list = tab === "All" ? certificates : certificates.filter((c) => c.issuer === tab);
+  const visible = expanded ? list : list.slice(0, LIMIT);
   const count = (name: string) =>
     name === "All" ? certificates.length : certificates.filter((c) => c.issuer === name).length;
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setZoom(null);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
 
   const pick = (name: string) => {
     setTab(name);
     setExpanded(false);
-    scroller.current?.scrollTo({ left: 0 });
   };
 
-  const slide = (dir: 1 | -1) => {
-    const el = scroller.current;
-    const card = el?.querySelector("article");
-    if (!el || !card) return;
-    el.scrollBy({ left: dir * (card.clientWidth + 20), behavior: "smooth" });
+  const open = (c: Cert, el: HTMLElement) => {
+    trigger.current = el;
+    setZoom(c);
+  };
+
+  // Kembalikan fokus ke tombol yang membuka modal.
+  const close = useCallback(() => {
+    setZoom(null);
+    trigger.current?.focus();
+  }, []);
+
+  const toggle = () => {
+    if (expanded) document.getElementById("credentials")?.scrollIntoView({ block: "start" });
+    setExpanded(!expanded);
   };
 
   return (
     <Section id="credentials">
-      <span id="certificates" />
+      <SectionHeading
+        index="05"
+        eyebrow="Learning & Credentials"
+        title="Certificates"
+        note="Selected blockchain learning achievements focused on smart contracts, testing, and decentralized application development."
+      />
 
-      <div>
-        <div className="mb-8 flex items-end justify-between gap-6">
-          <SectionHeading
-            index="05"
-            eyebrow="Learning & Credentials"
-            title="Certificates"
-            note="Selected blockchain learning achievements focused on smart contracts, testing, and decentralized application development."
-          />
-
-          {list.length > 3 && (
-            <div className="hidden shrink-0 gap-2 md:flex">
-              <button
-                type="button"
-                onClick={() => slide(-1)}
-                aria-label="Previous certificates"
-                className="h-10 w-10 rounded-full border border-white/15 text-white transition hover:border-accent hover:text-accent"
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                onClick={() => slide(1)}
-                aria-label="Next certificates"
-                className="h-10 w-10 rounded-full border border-white/15 text-white transition hover:border-accent hover:text-accent"
-              >
-                →
-              </button>
-            </div>
-          )}
-        </div>
-
-        <div className="-mx-6 mb-5 flex gap-2 overflow-x-auto px-6 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0">
-          {issuers.map((name) => (
-            <button
-              key={name}
-              type="button"
-              onClick={() => pick(name)}
-              aria-pressed={tab === name}
-              className={`shrink-0 rounded-full border px-4 py-2 text-xs transition ${
-                tab === name
-                  ? "border-accent text-accent"
-                  : "border-white/15 text-muted hover:text-fg"
-              }`}
-            >
-              {name} <span className="text-subtle">{count(name)}</span>
-            </button>
-          ))}
-        </div>
-
-        <div
-          ref={scroller}
-          className={`${
-            expanded
-              ? "-mx-6 flex snap-x snap-mandatory scroll-pl-6 gap-3 overflow-x-auto px-6 pb-3"
-              : "grid grid-cols-1 gap-3"
-          } [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:flex md:snap-x md:snap-mandatory md:gap-5 md:overflow-x-auto md:scroll-pl-0 md:px-0 md:pb-3`}
-        >
-          {list.map((c, i) => (
-            <article
-              key={c.image}
-              className={`group flex overflow-hidden rounded-xl border border-line bg-card transition-colors hover:border-accent/40 md:w-[calc((100%-2.5rem)/3)] md:shrink-0 md:snap-start md:flex-col md:items-stretch md:gap-0 md:p-0 ${
-                expanded
-                  ? "w-[85%] shrink-0 snap-start flex-col sm:w-[60%]"
-                  : "items-center gap-4 p-3"
-              } ${!expanded && i >= 3 ? "hidden md:flex" : ""}`}
-            >
-              <button
-                type="button"
-                onClick={() => setZoom(c.image)}
-                className={`overflow-hidden bg-black/30 ${
-                  expanded
-                    ? "aspect-[4/3] w-full"
-                    : "h-20 w-28 shrink-0 rounded-lg"
-                } md:aspect-[4/3] md:h-auto md:w-full md:rounded-none`}
-                aria-label={`Enlarge ${c.title} certificate`}
-              >
-                <img
-                  src={c.image}
-                  alt={`${c.title} certificate`}
-                  loading="lazy"
-                  className="h-full w-full object-contain"
-                />
-              </button>
-
-              <div
-                className={`flex min-w-0 flex-1 flex-col ${
-                  expanded ? "p-4" : "md:p-4"
-                }`}
-              >
-                <p className="text-[10px] font-medium uppercase tracking-wider text-accent">
-                  {c.issuer}
-                </p>
-                <h3
-                  className={`mt-1 font-semibold leading-5 text-white md:text-base ${
-                    expanded ? "text-base" : "text-sm"
-                  }`}
-                >
-                  {c.title}
-                </h3>
-                <p
-                  className={`mt-1 text-xs leading-5 text-muted md:block ${
-                    expanded ? "block" : "hidden"
-                  }`}
-                >
-                  {c.learned}
-                </p>
-                <a
-                  href={c.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto inline-flex items-center gap-1 pt-3 text-xs font-medium text-accent hover:text-fg"
-                >
-                  View Certificate <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {list.length > 3 && (
+      <div className="mt-10 flex flex-wrap gap-2">
+        {issuers.map((name) => (
           <button
+            key={name}
             type="button"
-            onClick={() => setExpanded(!expanded)}
-            className="mt-4 w-full text-center text-sm font-medium text-accent hover:text-fg md:hidden"
+            onClick={() => pick(name)}
+            aria-pressed={tab === name}
+            className={`rounded-full border px-4 py-2 text-xs transition-colors ${
+              tab === name
+                ? "border-accent text-accent"
+                : "border-white/15 text-muted hover:text-fg"
+            }`}
           >
-            {expanded ? "Show less" : "See more certificates"}
+            {name} <span className="text-subtle">{count(name)}</span>
           </button>
-        )}
+        ))}
       </div>
 
-      {zoom && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-3"
-          onClick={() => setZoom(null)}
-        >
-          <img
-            src={zoom}
-            alt="Certificate"
-            className="max-h-full max-w-full rounded-lg bg-white"
-          />
+      <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {visible.map((c) => (
+          <li
+            key={c.image}
+            className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-card transition-colors hover:border-accent/40"
+          >
+            <button
+              type="button"
+              onClick={(e) => open(c, e.currentTarget)}
+              aria-label={`Enlarge ${c.title} certificate`}
+              className="relative aspect-[4/3] overflow-hidden bg-black/30"
+            >
+              <img
+                src={c.image}
+                alt={`${c.title} certificate`}
+                loading="lazy"
+                className="h-full w-full object-contain transition duration-500 group-hover:scale-[1.03]"
+              />
+            </button>
+
+            <div className="flex flex-1 flex-col p-5">
+              <p className="font-mono text-[11px] uppercase tracking-wider text-accent">{c.issuer}</p>
+              <h3 className="mt-2 font-display text-lg font-semibold leading-snug tracking-tight text-fg">
+                {c.title}
+              </h3>
+              <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted">{c.learned}</p>
+              <a
+                href={c.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-medium text-accent transition-colors hover:text-fg"
+              >
+                View Certificate <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      {list.length > LIMIT && (
+        <div className="mt-10 flex justify-center">
+          <button
+            type="button"
+            onClick={toggle}
+            aria-expanded={expanded}
+            className="rounded-full border border-white/25 px-6 py-3 text-sm text-fg transition-colors hover:border-accent hover:text-accent"
+          >
+            {expanded ? "Show less" : `Show all ${list.length}`}
+          </button>
         </div>
       )}
+
+      {zoom && <Lightbox cert={zoom} onClose={close} />}
     </Section>
   );
 }
