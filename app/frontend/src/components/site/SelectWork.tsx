@@ -1,24 +1,23 @@
+import Section from "./Section";
 import SectionHeading from "./SectionHeading";
 import { projects } from "@/data/projects";
 
 export default function SelectedWork() {
   return (
-    <section
-      id="work"
-      className="border-t border-white/10 px-6 py-14 md:px-14"
-    >
+    <Section id="work">
       <SectionHeading
-        id="work-heading"
+        index="01"
+        eyebrow="Work"
         title="Selected Work"
         note="Selected projects across Web3 research, frontend development, and digital products."
       />
 
-      <div className="mt-8 grid gap-6 md:grid-cols-2">
+      <div className="mt-12 grid gap-6 md:grid-cols-2">
         {projects.map((project) => (
           <article
             key={project.title}
             data-reveal
-            className="overflow-hidden rounded border border-white/10 bg-card transition hover:border-accent/40"
+            className="overflow-hidden rounded border border-line bg-card transition hover:border-accent/40"
           >
             <div className="aspect-video overflow-hidden bg-black/30">
               <img
@@ -73,6 +72,6 @@ export default function SelectedWork() {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
