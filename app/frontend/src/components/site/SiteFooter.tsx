@@ -1,14 +1,21 @@
 import { site } from "@/data/site";
 import Logo from "./Logo";
+import { Container } from "./Section";
 
 export default function SiteFooter() {
   return (
-    <footer className="flex items-center justify-between border-t border-white/10 px-6 py-5 text-xs text-white/60 md:px-14">
-      <span className="flex items-center gap-2">
-        <Logo className="h-4 w-4" />
-        {site.name}
-      </span>
-      <span>Web3 / Frontend / Community / AI</span>
+    <footer className="border-t border-line text-xs text-subtle">
+      <Container className="flex flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between">
+        <span className="flex items-center gap-2 text-muted">
+          <Logo className="h-4 w-4" />
+          {site.name}
+          <span className="text-subtle">© {new Date().getFullYear()}</span>
+        </span>
+        <span>Web3 / Frontend / Community / AI</span>
+        <a href="#" className="transition-colors hover:text-accent">
+          Back to top ↑
+        </a>
+      </Container>
     </footer>
   );
 }
