@@ -95,7 +95,7 @@ export function Certificate() {
     () => Array.from(new Set(certificates.map((c) => c.issuer))),
     []
   );
-  // Tampilan awal: satu sertifikat unggulan dari tiap penerbit.
+  
   const featured = useMemo(
     () => issuers.map((i) => certificates.find((c) => c.issuer === i)!),
     [issuers]
@@ -109,7 +109,6 @@ export function Certificate() {
     setZoom(c);
   };
 
-  // Kembalikan fokus ke tombol yang membuka modal.
   const close = useCallback(() => {
     setZoom(null);
     trigger.current?.focus();
@@ -158,6 +157,7 @@ export function Certificate() {
                 <h3 className="mt-2 font-display text-lg font-semibold leading-snug tracking-tight text-fg">
                   {c.title}
                 </h3>
+                <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted">{c.learned}</p>
                 <a
                   href={c.href}
                   target="_blank"
