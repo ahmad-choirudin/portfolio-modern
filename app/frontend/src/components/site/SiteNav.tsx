@@ -81,7 +81,7 @@ export default function SiteNav() {
                   key={n}
                   href={`#${n.toLowerCase()}`}
                   onClick={() => setOpen(false)}
-                  className="flex items-baseline gap-4 border-b border-line py-4 font-display text-4xl text-fg"
+                  className="flex items-baseline gap-4 border-b border-line py-4 font-display text-4xl font-semibold tracking-tight text-fg"
                 >
                   <span className="font-sans text-xs tabular-nums text-subtle">{String(i + 1).padStart(2, "0")}</span>
                   {n}
