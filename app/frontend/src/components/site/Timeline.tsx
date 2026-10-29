@@ -1,4 +1,6 @@
 import { useEffect, useRef } from "react";
+import Section from "./Section";
+import SectionHeading from "./SectionHeading";
 
 const items = [
   {
@@ -69,30 +71,29 @@ export default function Timeline() {
   }, []);
 
   return (
-    <section id="experience" className="mx-auto max-w-6xl px-5 py-16">
-      <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-lime-400">Journey</p>
-      <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Experience</h2>
+    <Section id="experience">
+      <SectionHeading index="03" eyebrow="Journey" title="Experience" />
 
-      <ol ref={list} className="relative mt-10 max-w-2xl">
+      <ol ref={list} className="relative mt-12 max-w-2xl">
         <span className="absolute bottom-1 left-[7px] top-1 w-px bg-white/10" aria-hidden="true" />
-        <span className="tl-line absolute bottom-1 left-[7px] top-1 w-px bg-lime-400" aria-hidden="true" />
+        <span className="tl-line absolute bottom-1 left-[7px] top-1 w-px bg-accent" aria-hidden="true" />
         {items.map((it) => (
           <li key={it.title} className="tl-item relative pb-10 pl-10 last:pb-0">
-            <span className="tl-dot absolute left-0 top-1.5 h-[15px] w-[15px] rounded-full border-2 border-lime-400 bg-black" aria-hidden="true" />
-            <p className="text-xs font-medium text-lime-400">{it.period}</p>
+            <span className="tl-dot absolute left-0 top-1.5 h-[15px] w-[15px] rounded-full border-2 border-accent bg-bg" aria-hidden="true" />
+            <p className="text-xs font-medium text-accent">{it.period}</p>
             <h3 className="mt-1 text-lg font-semibold text-white">{it.title}</h3>
-            <p className="text-sm text-zinc-500">{it.org}</p>
-            <p className="mt-2 text-sm leading-6 text-zinc-400">{it.text}</p>
+            <p className="text-sm text-subtle">{it.org}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">{it.text}</p>
             {it.tags && (
               <ul className="mt-3 flex flex-wrap gap-2">
                 {it.tags.map((t) => (
-                  <li key={t} className="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-300">{t}</li>
+                  <li key={t} className="rounded-full border border-line px-3 py-1 text-xs text-fg/90">{t}</li>
                 ))}
               </ul>
             )}
           </li>
         ))}
       </ol>
-    </section>
+    </Section>
   );
 }
