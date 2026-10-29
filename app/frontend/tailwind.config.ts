@@ -15,7 +15,8 @@ export default {
       },
       fontFamily: {
         sans: ['"Inter"', "system-ui", "sans-serif"],
-        display: ['"Instrument Serif"', "Georgia", "serif"],
+        display: ['"Space Grotesk"', "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
       },
       fontSize: {
         eyebrow: ["0.75rem", { lineHeight: "1rem", letterSpacing: "0.22em" }],
