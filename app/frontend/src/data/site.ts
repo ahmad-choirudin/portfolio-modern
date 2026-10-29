@@ -3,7 +3,8 @@ export const site = {
   role: "Independent Digital Professional · Indonesia",
   heroImage: "/hero.webp",
   aboutImage: "/about.webp",
-  email: "ahmadchoirudin86@gmail.com",
+  emailUser: "ahmadchoirudin86@",
+  emailDomain: "gmail.com",
 
   nav: [
     "Work",
