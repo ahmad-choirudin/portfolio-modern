@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { certificates } from "../../data/certificate";
+import Section from "./Section";
+import SectionHeading from "./SectionHeading";
 
 export function Certificate() {
   const [zoom, setZoom] = useState<string | null>(null);
@@ -37,23 +39,17 @@ export function Certificate() {
   };
 
   return (
-    <section id="credentials" className="py-16">
+    <Section id="credentials">
       <span id="certificates" />
 
-      <div className="mx-auto max-w-6xl px-5">
-        <div className="mb-6 flex items-end justify-between gap-6">
-          <div>
-            <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-lime-400">
-              Learning & Credentials
-            </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              Certificates
-            </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-400">
-              Selected blockchain learning achievements focused on smart
-              contracts, testing, and decentralized application development.
-            </p>
-          </div>
+      <div>
+        <div className="mb-8 flex items-end justify-between gap-6">
+          <SectionHeading
+            index="05"
+            eyebrow="Learning & Credentials"
+            title="Certificates"
+            note="Selected blockchain learning achievements focused on smart contracts, testing, and decentralized application development."
+          />
 
           {list.length > 3 && (
             <div className="hidden shrink-0 gap-2 md:flex">
@@ -61,7 +57,7 @@ export function Certificate() {
                 type="button"
                 onClick={() => slide(-1)}
                 aria-label="Previous certificates"
-                className="h-10 w-10 rounded-full border border-white/15 text-white transition hover:border-lime-400 hover:text-lime-400"
+                className="h-10 w-10 rounded-full border border-white/15 text-white transition hover:border-accent hover:text-accent"
               >
                 ←
               </button>
@@ -69,7 +65,7 @@ export function Certificate() {
                 type="button"
                 onClick={() => slide(1)}
                 aria-label="Next certificates"
-                className="h-10 w-10 rounded-full border border-white/15 text-white transition hover:border-lime-400 hover:text-lime-400"
+                className="h-10 w-10 rounded-full border border-white/15 text-white transition hover:border-accent hover:text-accent"
               >
                 →
               </button>
@@ -77,7 +73,7 @@ export function Certificate() {
           )}
         </div>
 
-        <div className="-mx-5 mb-5 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0">
+        <div className="-mx-6 mb-5 flex gap-2 overflow-x-auto px-6 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0">
           {issuers.map((name) => (
             <button
               key={name}
@@ -86,11 +82,11 @@ export function Certificate() {
               aria-pressed={tab === name}
               className={`shrink-0 rounded-full border px-4 py-2 text-xs transition ${
                 tab === name
-                  ? "border-lime-400 text-lime-400"
-                  : "border-white/15 text-zinc-400 hover:text-white"
+                  ? "border-accent text-accent"
+                  : "border-white/15 text-muted hover:text-fg"
               }`}
             >
-              {name} <span className="text-zinc-500">{count(name)}</span>
+              {name} <span className="text-subtle">{count(name)}</span>
             </button>
           ))}
         </div>
@@ -99,14 +95,14 @@ export function Certificate() {
           ref={scroller}
           className={`${
             expanded
-              ? "-mx-5 flex snap-x snap-mandatory scroll-pl-5 gap-3 overflow-x-auto px-5 pb-3"
+              ? "-mx-6 flex snap-x snap-mandatory scroll-pl-6 gap-3 overflow-x-auto px-6 pb-3"
               : "grid grid-cols-1 gap-3"
           } [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:flex md:snap-x md:snap-mandatory md:gap-5 md:overflow-x-auto md:scroll-pl-0 md:px-0 md:pb-3`}
         >
           {list.map((c, i) => (
             <article
               key={c.image}
-              className={`group flex overflow-hidden rounded-xl border border-white/10 bg-zinc-950 transition-colors hover:border-lime-400/40 md:w-[calc((100%-2.5rem)/3)] md:shrink-0 md:snap-start md:flex-col md:items-stretch md:gap-0 md:p-0 ${
+              className={`group flex overflow-hidden rounded-xl border border-line bg-card transition-colors hover:border-accent/40 md:w-[calc((100%-2.5rem)/3)] md:shrink-0 md:snap-start md:flex-col md:items-stretch md:gap-0 md:p-0 ${
                 expanded
                   ? "w-[85%] shrink-0 snap-start flex-col sm:w-[60%]"
                   : "items-center gap-4 p-3"
@@ -115,7 +111,7 @@ export function Certificate() {
               <button
                 type="button"
                 onClick={() => setZoom(c.image)}
-                className={`overflow-hidden bg-zinc-900 ${
+                className={`overflow-hidden bg-black/30 ${
                   expanded
                     ? "aspect-[4/3] w-full"
                     : "h-20 w-28 shrink-0 rounded-lg"
@@ -135,7 +131,7 @@ export function Certificate() {
                   expanded ? "p-4" : "md:p-4"
                 }`}
               >
-                <p className="text-[10px] font-medium uppercase tracking-wider text-lime-400">
+                <p className="text-[10px] font-medium uppercase tracking-wider text-accent">
                   {c.issuer}
                 </p>
                 <h3
@@ -146,7 +142,7 @@ export function Certificate() {
                   {c.title}
                 </h3>
                 <p
-                  className={`mt-1 text-xs leading-5 text-zinc-400 md:block ${
+                  className={`mt-1 text-xs leading-5 text-muted md:block ${
                     expanded ? "block" : "hidden"
                   }`}
                 >
@@ -156,7 +152,7 @@ export function Certificate() {
                   href={c.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-auto inline-flex items-center gap-1 pt-3 text-xs font-medium text-lime-400 hover:text-lime-300"
+                  className="mt-auto inline-flex items-center gap-1 pt-3 text-xs font-medium text-accent hover:text-fg"
                 >
                   View Certificate <span aria-hidden="true">↗</span>
                 </a>
@@ -169,7 +165,7 @@ export function Certificate() {
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}
-            className="mt-4 w-full text-center text-sm font-medium text-lime-400 hover:text-lime-300 md:hidden"
+            className="mt-4 w-full text-center text-sm font-medium text-accent hover:text-fg md:hidden"
           >
             {expanded ? "Show less" : "See more certificates"}
           </button>
@@ -188,7 +184,7 @@ export function Certificate() {
           />
         </div>
       )}
-    </section>
+    </Section>
   );
 }
 
