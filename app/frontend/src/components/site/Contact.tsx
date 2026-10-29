@@ -1,25 +1,13 @@
-import { useState } from "react";
 import Section from "./Section";
 import { site } from "@/data/site";
 
 export default function Contact() {
-  const [copied, setCopied] = useState(false);
-
-  const address = () => `${site.emailUser}@${site.emailDomain}`;
-
+  
   const sendEmail = () => {
-    window.location.href = `mailto:${address()}`;
-  };
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(address());
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      
-      sendEmail();
-    }
+    const to = `${site.emailUser}@${site.emailDomain}`;
+    const subject = encodeURIComponent("Hello Ahmad — let’s talk");
+    const body = encodeURIComponent("Hi Ahmad,\n\n");
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -36,32 +24,19 @@ export default function Contact() {
           <span className="text-accent">Let’s talk.</span>
         </h2>
 
-        <div className="mt-10 flex flex-wrap items-center gap-3">
-          <button
-            type="button"
-            onClick={sendEmail}
-            className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-4 text-sm font-medium text-bg transition hover:-translate-y-0.5 hover:shadow-[0_10px_26px_-10px_rgb(var(--accent-rgb)/0.7)]"
+        <button
+          type="button"
+          onClick={sendEmail}
+          className="group mt-10 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-4 text-sm font-medium text-bg transition hover:-translate-y-0.5 hover:shadow-[0_10px_26px_-10px_rgb(var(--accent-rgb)/0.7)]"
+        >
+          Send Email
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
           >
-            Send Email
-            <span
-              aria-hidden="true"
-              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-            >
-              ↗
-            </span>
-          </button>
-
-          <button
-            type="button"
-            onClick={copyEmail}
-            className="rounded-full border border-white/25 px-7 py-4 text-sm text-fg transition hover:-translate-y-0.5 hover:border-accent hover:text-accent"
-          >
-            {copied ? "Copied ✓" : "Copy email"}
-          </button>
-          <span className="sr-only" aria-live="polite">
-            {copied ? "Email address copied to clipboard" : ""}
+            ↗
           </span>
-        </div>
+        </button>
       </div>
 
       <ul className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4">
