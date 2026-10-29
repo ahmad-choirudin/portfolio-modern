@@ -1,8 +1,21 @@
-export default function SectionHeading({ id, title, note }: { id: string; title: string; note?: string }) {
+type Props = {
+  index?: string;
+  eyebrow: string;
+  title: string;
+  note?: string;
+  className?: string;
+};
+
+export default function SectionHeading({ index, eyebrow, title, note, className = "" }: Props) {
   return (
-    <div id={id} className="scroll-mt-20">
-      <h2 className="text-4xl font-semibold tracking-tight">{title}</h2>
-      {note && <p className="mt-3 max-w-xs text-sm text-white/60">{note}</p>}
+    <div className={className}>
+      <p className="flex items-center gap-3 text-eyebrow font-medium uppercase text-accent">
+        {index && <span className="tabular-nums text-subtle">{index}</span>}
+        <span className="h-px w-8 bg-accent/60" aria-hidden="true" />
+        {eyebrow}
+      </p>
+      <h2 className="mt-5 font-display text-display-md text-fg">{title}</h2>
+      {note && <p className="mt-4 max-w-md text-base leading-7 text-muted">{note}</p>}
     </div>
   );
 }
