@@ -11,76 +11,86 @@ const lines = [
 
 export default function Hero() {
   return (
-    <section className="relative isolate min-h-[85vh] overflow-hidden pt-16">
+    <section className="relative isolate flex min-h-[88svh] items-center overflow-hidden pt-16">
       <NetworkBackground />
+
+      {/* Cahaya aksen di belakang foto */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-24 top-1/4 -z-10 h-[28rem] w-[28rem] rounded-full bg-accent/10 blur-3xl"
+      />
 
       {/* Foto */}
       <div className="absolute inset-y-0 right-0 w-full md:w-1/2 md:pt-16">
         <img
           src={site.heroImage}
           alt="Ahmad Choirudin"
+          width={1024}
+          height={1280}
           className="hero-photo h-full w-full object-cover object-[center_20%] opacity-70 md:opacity-100"
         />
         {/* HP: gelap merata supaya teks terbaca */}
         <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-bg/30 md:hidden" />
         {/* Desktop: pudar tipis ke kiri */}
         <div className="absolute inset-0 hidden bg-gradient-to-r from-bg via-bg/10 to-transparent md:block md:w-1/3" />
+        {/* Pudar ke bawah supaya menyatu dengan marquee */}
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
       </div>
 
-      <svg className="sig" viewBox="0 0 340 150" aria-hidden="true">
-        <path
-          pathLength={1}
-          d="M10 125 C60 15 95 145 145 65 S225 5 262 72 S305 105 332 38"
-        />
-      </svg>
+      <Container className="relative py-16">
+        <div className="hero-in relative max-w-3xl">
+          <p className="flex items-center gap-3 font-mono text-eyebrow uppercase text-muted">
+            <span className="h-px w-8 bg-accent/60" aria-hidden="true" />
+            {site.role}
+          </p>
 
-      <Container className="relative pb-16">
-      <div className="hero-in relative max-w-xl md:pt-10">
-        <p className="text-xs text-white/60">{site.role}</p>
+          <h1
+            className="split mt-8 font-display text-[clamp(2.25rem,4.6vw,3.75rem)] font-semibold leading-[1.02] tracking-tight"
+            aria-label={lines.join(" ")}
+          >
+            {lines.map((line, i) => (
+              <span
+                key={line}
+                className={`ln ${i > 1 ? "acc" : ""}`}
+                style={{ "--l": i } as React.CSSProperties}
+                aria-hidden="true"
+              >
+                <span>{line}</span>
+              </span>
+            ))}
+          </h1>
 
-        <h1
-          className="split mt-6 text-5xl font-semibold leading-[1.05] tracking-tight md:text-6xl"
-          aria-label={lines.join(" ")}
-        >
-          {lines.map((line, i) => (
-            <span
-              key={line}
-              className={`ln ${i > 1 ? "acc" : ""}`}
-              style={{ "--l": i } as React.CSSProperties}
-              aria-hidden="true"
+          <p className="mt-8 max-w-lg text-base leading-7 text-muted md:text-lg md:leading-8">
+            I work across Web3 research, community operations, AI data quality,
+            and frontend development. I contribute to digital ecosystems through
+            research, evaluation, community support, and hands-on projects.
+          </p>
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            <a
+              href="#work"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-medium text-bg transition hover:-translate-y-0.5 hover:shadow-[0_10px_26px_-10px_rgb(var(--accent-rgb)/0.7)]"
             >
-              <span>{line}</span>
+              Explore My Work
+              <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
+            </a>
+
+            <a
+              href="#contact"
+              className="rounded-full border border-white/25 px-6 py-3.5 text-sm text-fg transition hover:-translate-y-0.5 hover:border-accent hover:text-accent"
+            >
+              Let’s Connect
+            </a>
+          </div>
+
+          <p className="mt-10 inline-flex items-center gap-2.5 rounded-full border border-line bg-bg/40 px-3.5 py-1.5 font-mono text-xs text-muted backdrop-blur">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-60 motion-safe:animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
-          ))}
-        </h1>
-
-        <p className="mt-6 max-w-md text-white/75">
-          I work across Web3 research, community operations, AI data quality,
-          and frontend development. I contribute to digital ecosystems through
-          research, evaluation, community support, and hands-on projects.
-        </p>
-
-        <div className="mt-8 flex flex-wrap gap-3">
-          <a
-            href="#work"
-            className="rounded-full bg-accent px-5 py-3 text-sm font-medium text-bg transition hover:-translate-y-0.5 hover:shadow-[0_10px_26px_-10px_rgba(141,242,91,.7)]"
-          >
-            Explore My Work
-          </a>
-
-          <a
-            href="#contact"
-            className="rounded-full border border-white/30 px-5 py-3 text-sm transition hover:-translate-y-0.5"
-          >
-            Let’s Connect
-          </a>
+            Open to remote opportunities
+          </p>
         </div>
-
-        <p className="mt-6 flex items-center gap-2 text-xs text-white/70">
-          <span className="h-2 w-2 rounded-full bg-accent" />
-          Open to remote opportunities
-        </p>
-      </div>
       </Container>
     </section>
   );
