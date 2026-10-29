@@ -1,60 +1,51 @@
 import { site } from "@/data/site";
 import Section from "./Section";
 import SectionHeading from "./SectionHeading";
+import StatsCounter from "./StatsCounter";
 
 export default function Introduction() {
   return (
     <Section id="about">
-      <div className="grid gap-10 md:grid-cols-3">
-      <div data-reveal>
-        <SectionHeading index="02" eyebrow="About" title="About Me" />
+      <div className="grid gap-12 md:grid-cols-12 md:gap-16">
+        <div data-reveal className="md:col-span-7">
+          <SectionHeading index="02" eyebrow="About" title="About Me" />
 
-        <p className="mt-5 text-sm text-white/75">
-          I’m Ahmad Choirudin, a digital professional from Indonesia with
-          experience across Web3 research, community operations, and AI data
-          projects.
-        </p>
+          <p className="mt-8 text-xl leading-8 text-fg md:text-2xl md:leading-9">
+            I’m Ahmad Choirudin, a digital professional from Indonesia with
+            experience across Web3 research, community operations, and AI data
+            projects.
+          </p>
 
-        <p className="mt-4 text-sm text-white/75">
-          My work includes blockchain ecosystem research, online community
-          moderation, AI evaluation, and data annotation. I’m also building
-          practical frontend projects to strengthen my skills in creating
-          modern web experiences.
-        </p>
+          <div className="mt-6 space-y-5 text-base leading-7 text-muted">
+            <p>
+              My work includes blockchain ecosystem research, online community
+              moderation, AI evaluation, and data annotation. I’m also building
+              practical frontend projects to strengthen my skills in creating
+              modern web experiences.
+            </p>
+            <p>
+              I value clear communication, attention to detail, and continuous
+              learning. I’m interested in contributing to remote teams working
+              on digital products, emerging technologies, and online
+              communities.
+            </p>
+          </div>
+        </div>
 
-        <p className="mt-4 text-sm text-white/75">
-          I value clear communication, attention to detail, and continuous
-          learning. I’m interested in contributing to remote teams working on
-          digital products, emerging technologies, and online communities.
-        </p>
+        <div data-reveal className="md:col-span-5">
+          <img
+            src={site.aboutImage}
+            alt="Portrait of Ahmad Choirudin"
+            width={720}
+            height={1074}
+            loading="lazy"
+            className="aspect-[4/5] w-full max-w-md rounded-2xl border border-line object-cover grayscale transition duration-700 hover:grayscale-0 md:ml-auto"
+          />
+        </div>
       </div>
 
-      <img
-        data-reveal
-        src={site.aboutImage}
-        alt="Ahmad Choirudin"
-        className="aspect-[4/5] w-full rounded object-cover grayscale"
-        loading="lazy"
-      />
-
-      <blockquote
-        data-reveal
-        className="self-start rounded border border-line bg-card p-6 text-sm text-white/80"
-      >
-        <p className="text-xs uppercase tracking-widest text-white/50">
-          Areas of Focus
-        </p>
-
-        <p className="mt-4 leading-7">
-          Web3 Research
-          <br />
-          AI Data Quality
-          <br />
-          Community Operations
-          <br />
-          Frontend Development
-        </p>
-      </blockquote>
+      <div data-reveal className="mt-16 border-t border-line pt-10 md:mt-24 md:pt-12">
+        <StatsCounter />
       </div>
     </Section>
   );
