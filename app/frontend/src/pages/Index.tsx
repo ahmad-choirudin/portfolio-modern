@@ -14,9 +14,15 @@ import SiteFooter from "@/components/site/SiteFooter";
 export default function Index() {
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-bg"
+      >
+        Skip to content
+      </a>
       <CursorLayer />
       <SiteNav />
-      <main>
+      <main id="main">
         <Hero />
         <Marquee />
         <StatsCounter />
