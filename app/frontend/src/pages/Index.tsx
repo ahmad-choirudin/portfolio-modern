@@ -1,7 +1,6 @@
 import SiteNav from "@/components/site/SiteNav";
 import Hero from "@/components/site/Hero";
 import Marquee from "@/components/site/Marquee";
-import StatsCounter from "@/components/site/StatsCounter";
 import SelectWork from "@/components/site/SelectWork";
 import Introduction from "@/components/site/Introduction";
 import Timeline from "@/components/site/Timeline";
@@ -25,7 +24,6 @@ export default function Index() {
       <main id="main">
         <Hero />
         <Marquee />
-        <StatsCounter />
         <SelectWork />
         <Introduction />
         <Timeline />
