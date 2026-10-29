@@ -1,11 +1,14 @@
+import Section from "./Section";
 import SectionHeading from "./SectionHeading";
 import { site } from "@/data/site";
 
 export default function Contact() {
   return (
-    <section className="grid gap-8 border-t border-white/10 px-6 py-14 md:grid-cols-[260px_1fr_auto] md:px-14">
+    <Section id="contact">
+      <div className="grid gap-10 md:grid-cols-[minmax(0,320px)_1fr_auto]">
       <SectionHeading
-        id="contact"
+        index="06"
+        eyebrow="Get in touch"
         title="Contact"
         note="Interested in working together? Feel free to get in touch."
       />
@@ -35,6 +38,7 @@ export default function Contact() {
         </a>
         <p className="mt-3 text-white/60">{site.email}</p>
       </div>
-    </section>
+      </div>
+    </Section>
   );
 }
