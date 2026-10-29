@@ -6,13 +6,14 @@ export const site = {
   email: "ahmadchoirudin86@gmail.com",
 
   nav: [
-    "About",
     "Work",
+    "About",
+    "Experience",
     "Expertise",
     "Credentials",
     "Contact",
   ],
-
+  
   socials: [
     {
       label: "LinkedIn",
