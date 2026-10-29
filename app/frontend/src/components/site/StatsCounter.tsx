@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { certificates } from "../../data/certificate";
 import { projects } from "../../data/projects";
+import Section from "./Section";
 
 const START_YEAR = 2020;
 
@@ -42,17 +43,17 @@ export default function StatsCounter() {
     { to: 4, suffix: "", label: "Areas of focus" },
   ];
   return (
-    <section className="mx-auto max-w-6xl px-5 py-14">
+    <Section tight>
       <dl className="grid grid-cols-2 gap-6 md:grid-cols-4">
         {stats.map((s) => (
-          <div key={s.label} className="border-l border-white/10 pl-4">
-            <dt className="order-2 mt-1 text-xs text-zinc-400">{s.label}</dt>
-            <dd className="text-4xl font-semibold tracking-tight text-lime-400">
+          <div key={s.label} className="flex flex-col border-l border-line pl-4">
+            <dt className="order-2 mt-1 text-xs text-muted">{s.label}</dt>
+            <dd className="text-4xl font-semibold tracking-tight text-accent">
               <Count to={s.to} suffix={s.suffix} />
             </dd>
           </div>
         ))}
       </dl>
-    </section>
+    </Section>
   );
 }
