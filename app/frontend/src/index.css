@@ -44,22 +44,28 @@
   .hero-in > :nth-child(4) { animation-delay: .6s; }
   .hero-in > :nth-child(5) { animation-delay: .75s; }
   .hero-photo { opacity: 0; animation: photo 1.6s ease-out forwards; }
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; transition-delay: calc(var(--i, 0) * 90ms); }
-  .reveal.is-in { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .7s ease, transform .7s ease;
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+  [data-reveal].is-in { opacity: 1; transform: none; }
 }
 
 .ln { display: block; }
 .ln.acc > span { color: var(--accent); }
 .hero-photo { translate: 0 var(--py, 0px); }
+
 .cursor-bar { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; z-index: 60; }
 .cursor-glow { position: fixed; left: 0; top: 0; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgb(var(--accent-rgb) / .1), transparent 65%); pointer-events: none; opacity: 0; transition: opacity .4s; z-index: 30; will-change: transform; }
 @media (pointer: coarse) { .cursor-glow { display: none; } }
-.card { position: relative; overflow: hidden; transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: border-color .2s, transform .25s ease-out; }
-.card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgb(var(--accent-rgb) / .13), transparent 60%); opacity: 0; transition: opacity .3s; pointer-events: none; }
-.card:hover::before { opacity: 1; }
+
 @media (prefers-reduced-motion: no-preference) {
   @keyframes up { to { transform: none; } }
-  @keyframes draw { to { stroke-dashoffset: 0; } }
   @keyframes sh { to { background-position: -200% 0; } }
   .hero-in > h1.split { opacity: 1; animation: none; }
   .ln { overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em; }
